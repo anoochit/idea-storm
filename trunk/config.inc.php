@@ -4,7 +4,7 @@
 /**
  * Database Setting
  */
-$cfg_db="eport";
+$cfg_db="brainstorm";
 $cfg_host="localhost";
 $cfg_username="raziel";
 $cfg_password="monalisa";
