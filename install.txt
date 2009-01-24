@@ -17,10 +17,14 @@ svn checkout http://idea-storm.googlecode.com/svn/trunk/ idea-storm-read-only
 *** If you are not familiar with SVN you can download at download page <http://code.google.com/p/idea-storm/downloads/list>
 
 2. Extract to your working directory, you can set virtual host for the system see Apache Virtual Host Cofig section below
-3. Create database "brainstorm" as UTF-8 encoding
+3. Create database "brainstorm" as UTF-8 encoding and grant to brainstorm user.
+
+mysql -u root -p -e "CREATE DATABASE brainstorm DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci"
+mysql -u root -p -e "GRANT ALL PRIVILEGES ON brainstorm.*  TO 'brainstorm'@'localhost' WITH GRANT OPTION"
+
 4. Import database schema in "db" directory to brainstorm database
 
-mysql -u root -pyourpassword brainstorm < db/brainstorm.sql
+mysql -u root -p brainstorm < db/brainstorm.sql
 
 5. Edit configuration file "config.inc.php" change to your database connection value.
 6. Browse to your brainstorm website eg: http://your-domain/brainstorm
@@ -32,7 +36,7 @@ Apache Virtual Host Cofig
   ServerName brainstorm.redlinesoft.net
   DocumentRoot "D:/redlinesoft/www/brainstorm" 
   DirectoryIndex index.html index.htm index.php
-  <Directory "D:/redlinesoft/www/brainstorm"> 
+  <Directory "D:/redlinesoft/www/brainstorm/"> 
    AllowOverride All
    Order allow,deny
    Allow from All
