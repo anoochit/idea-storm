@@ -1,0 +1,41 @@
+### DRAFT VERSION ###
+
+
+Install
+====
+
+1. Check out development version from https://idea-storm.googlecode.com/svn/trunk/
+
+# Project members authenticate over HTTPS to allow committing changes.
+svn checkout https://idea-storm.googlecode.com/svn/trunk/ idea-storm --username your-member-username
+
+When prompted, enter your generated googlecode.com password. <http://code.google.com/hosting/settings>
+
+# Non-members may check out a read-only working copy anonymously over HTTP.
+svn checkout http://idea-storm.googlecode.com/svn/trunk/ idea-storm-read-only
+
+*** If you are not familiar with SVN you can download at download page <http://code.google.com/p/idea-storm/downloads/list>
+
+2. Extract to your working directory, you can set virtual host for the system see Apache Virtual Host Cofig section below
+3. Create database "brainstorm" as UTF-8 encoding
+4. Import database schema in "db" directory to brainstorm database
+
+mysql -u root -pyourpassword brainstorm < db/brainstorm.sql
+
+5. Edit configuration file "config.inc.php" change to your database connection value.
+6. Browse to your brainstorm website eg: http://your-domain/brainstorm
+
+Apache Virtual Host Cofig
+==================
+
+<VirtualHost *:80>
+  ServerName brainstorm.redlinesoft.net
+  DocumentRoot "D:/redlinesoft/www/brainstorm" 
+  DirectoryIndex index.html index.htm index.php
+  <Directory "D:/redlinesoft/www/brainstorm"> 
+   AllowOverride All
+   Order allow,deny
+   Allow from All
+</Directory>
+</VirtualHost>
+
