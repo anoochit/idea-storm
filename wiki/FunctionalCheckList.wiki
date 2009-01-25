@@ -31,3 +31,5 @@
 =Non-Functional=
   * N1.1 May be use AJAX for give a score (+1,-1).
   * ~~N1.2 Not store any user name and password, authentication from OpenID only~~.
+  * ~~N1.3 Using template engine for page caching (issue #2)~~.
+  * ~~N1.4 Template can be separate to each page (issue #3) ~~.
