@@ -52,8 +52,8 @@ if (isset($_POST['openid_action']) && isset($_POST['openid_url']) && ($_POST['op
 <input type="hidden" name="openid_action" value="login">
 <div>
 <input type="text" name="openid_url" class="openid_login" value="">
-<input type="submit" name="login" value="Sign In"></div>
-<div><a href="http://www.myopenid.com/" class="link" target="_blank">Get an OpenID</a></div>
+<input type="submit" name="login" value="<?=_LC_SIGNIN_OPENID;?>"></div>
+<div><a href="http://www.myopenid.com/" class="link" target="_blank"><?=_LC_GET_OPENID;?></a></div>
 </form>
 </div>
 <!-- openid form -->	

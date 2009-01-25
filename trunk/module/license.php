@@ -1,6 +1,6 @@
 <?php
 
-echo nl2br(file_get_contents("license.txt"));
+echo nl2br(htmlentities((file_get_contents("license.txt"))));
 
 
 ?>
