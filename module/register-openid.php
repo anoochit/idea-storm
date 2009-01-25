@@ -26,14 +26,14 @@ if (isset($_GET['openid_mode']) && isset($_GET['openid_identity']) && isset($_GE
 					$obsys->showMessage(1,$err);
 				} else {
 					// set session and redirect
-					$obsys->setSession($_GET['openid_sreg_fullname'],$obmem->memid);
+					$obsys->setSession($_GET['openid_sreg_fullname'],$obmem->memid,$_GET['openid_sreg_email']);
 					$obsys->showMessage(3,_LC_MEMBER_REGISTERED);
 					$obsys->goPageDelay("",1);
 				}
 			} else {
 				$obmem=new iMemberUtil();
 				$res=$obmem->loadMember($_GET['openid_identity']);
-				$obsys->setSession($res->fname,$res->memid);
+				$obsys->setSession($res->fname,$res->memid,$res->email);
 				// set session and redirect
 				$obsys->showMessage(3,_LC_ALREADY_MEMBER);
 				$obsys->goPageDelay("",1);
