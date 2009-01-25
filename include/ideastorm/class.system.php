@@ -35,9 +35,16 @@ class iSystem {
 		<?
 	}
 	
-	function setSession($fullname,$memid){
+	function setSession($fullname,$memid,$email){
 		$_SESSION['memid']=$memid;
 		$_SESSION['fullname']=$fullname;
+		$_SESSION['email']=$email;
+	}
+	
+	function delSession() {
+		$_SESSION['memid']=0;
+		$_SESSION['fullname']="";
+		$_SESSION['email']="";
 	}
 	
 }
