@@ -29,19 +29,22 @@ include_once('include/adodb/adodb-exceptions.inc.php');
 
 $db = NewADOConnection("mysql://".$cfg_username.":".$cfg_password."@".$cfg_host."/".$cfg_db);
 ADOdb_Active_Record::SetDatabaseAdapter($db);
-//$db->debug=1;
+$db->debug=1;
 
 /**
- * load smarty
+ * load ideastorm ORM
  */
+include_once('include/ideastorm/class.category.php');
+include_once('include/ideastorm/class.comment.php');
+include_once('include/ideastorm/class.member.php');
+include_once('include/ideastorm/class.node.php');
+include_once('include/ideastorm/class.relation.php');
+include_once('include/ideastorm/class.system.php');
 
-define ("SMARTY_DIR", "include/smarty/");
-require_once (SMARTY_DIR."Smarty.class.php");
-$smarty = new Smarty;
-$smarty->compile_dir = "cache";
-$smarty->template_dir = "theme/".$cfg_theme."/";
-$smarty->assign("site_theme", $cfg_theme);
-
+/**
+ * Initial iSystem
+ */
+$obsys=new iSystem($cfg_url,$cfg_theme);
 
 /**
  *  Align URI if deploy in sub directory
@@ -58,7 +61,6 @@ $mod=$strap[1]; // mod
 $act=$strap[2]; // command or action
 $file=$strap[3]; // files
 $item=$strap[4]; // item id
-
 
 /**
  * load language file
@@ -80,6 +82,21 @@ include_once("include/bootstrap.inc.php");
  *  load module
  */
 if (($mod!="") AND ($act=="") AND ($file=="") AND ($item=="")) {
+	$res=loadmod();
+	$template=$res["template"];
+	$pagefile=$res["pagefile"];
+} else if (($mod!="") AND ($act!="") AND ($file=="") AND ($item=="")) { 
+	$res=loadmodact();
+	$template=$res["template"];
+	$pagefile=$res["pagefile"];	
+} else if (($mod=="") AND ($act=="")  AND ($file=="") AND ($item=="")) {
+	// index page
+	$template="index";
+	$pagefile="home";
+}
+
+function loadmod() {
+	global $cfg_theme,$mod;
 	// find template 
 	if (file_exists("theme/".$cfg_theme."/page-".$mod.".tpl")) {
 		// assign template file
@@ -96,11 +113,45 @@ if (($mod!="") AND ($act=="") AND ($file=="") AND ($item=="")) {
 		// assign page filename to page not found
 		$pagefile="page-not-found";
 	}
-} else if (($mod=="") AND ($act=="")  AND ($file=="") AND ($item=="")) {
-	// index page
-	$template="index";
-	$pagefile="home";
+	$res=array("template"=>$template,"pagefile"=>$pagefile);
+	return $res;
 }
+
+function loadmodact() {
+	global $cfg_theme,$mod,$act;
+	// find template 
+	if (file_exists("theme/".$cfg_theme."/page-".$mod."-".$act.".tpl")) {
+		// assign template file
+		$template="page-".$mod."-".$act;
+	} else {
+		// cannot fine template file use page default
+		$template="page";
+	}
+	if (preg_match("/openid/",$act)) {
+		$act="openid";
+	}
+	// find pagefile
+	if (file_exists("module/".$mod."-".$act.".php")) {
+		// assign page filename
+		$pagefile=$mod."-".$act;		
+	} else {
+		// assign page filename to page not found
+		$pagefile="page-not-found";
+	}
+	$res=array("template"=>$template,"pagefile"=>$pagefile);
+	return $res;
+}
+
+
+/**
+ * load smarty
+ */
+define ("SMARTY_DIR", "include/smarty/");
+require_once (SMARTY_DIR."Smarty.class.php");
+$smarty = new Smarty;
+$smarty->compile_dir = "cache";
+$smarty->template_dir = "theme/".$cfg_theme."/";
+$smarty->assign("site_theme", $cfg_theme);
 
 
 /**
@@ -118,6 +169,7 @@ $content = ob_get_contents();
 ob_end_clean();
 $smarty->assign("site_footer", $content);
 
+
 /**
  * set body value
  */
@@ -126,7 +178,6 @@ include("module/".$pagefile.".php");
 $content = ob_get_contents();
 ob_end_clean();
 $smarty->assign("site_body", $content);
-
 
 $smarty->display($template.".tpl");	
 
