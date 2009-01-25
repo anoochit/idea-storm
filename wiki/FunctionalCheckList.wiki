@@ -26,7 +26,7 @@
   * F3.3 The Avatar of each member derived from Gravatar service.
   * F3.4 Member can manage the system depend on permission rule (administrator, content manager, member and visitor)
   * ~~F3.5 The member compost of first name, last name, *email* and OpenID url.~~
-  * F3.6 The OpenID service 'll be the authentication system when member sign-in.
+  * ~~F3.6 The OpenID service 'll be the authentication system when member sign-in.~~
 	
 =Non-Functional=
   * N1.1 May be use AJAX for give a score (+1,-1).
