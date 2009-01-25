@@ -89,6 +89,10 @@ if (($mod!="") AND ($act=="") AND ($file=="") AND ($item=="")) {
 	$res=loadmodact();
 	$template=$res["template"];
 	$pagefile=$res["pagefile"];	
+} else if (($mod!="") AND ($act!="") AND ($file!="")  AND ($item=="")) { 
+	$res=loadmodact();
+	$template=$res["template"];
+	$pagefile=$res["pagefile"];	
 } else if (($mod=="") AND ($act=="")  AND ($file=="") AND ($item=="")) {
 	// index page
 	$template="index";
