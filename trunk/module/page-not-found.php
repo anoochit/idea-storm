@@ -1,1 +1,6 @@
-<H1>404 <?=_LC_PAGE_NOT_FOUND; ?></H1>
+<?php
+
+$obsys->showMessage(2,_LC_PAGE_NOT_FOUND);
+$obsys->goPageDelay("",2);
+
+?>
