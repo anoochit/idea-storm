@@ -77,9 +77,8 @@ if (file_exists("language/lang-".$cfg_lang.".php")) {
  */
 include_once("include/bootstrap.inc.php");
 
-
 /**
- *  load module
+ * load module
  */
 if (($mod!="") AND ($act=="") AND ($file=="") AND ($item=="")) {
 	$res=loadmod();
@@ -99,6 +98,10 @@ if (($mod!="") AND ($act=="") AND ($file=="") AND ($item=="")) {
 	$pagefile="home";
 }
 
+/*
+ * FIXME
+ * @return array
+ */
 function loadmod() {
 	global $cfg_theme,$mod;
 	// find template 
@@ -120,7 +123,10 @@ function loadmod() {
 	$res=array("template"=>$template,"pagefile"=>$pagefile);
 	return $res;
 }
-
+/*
+ * FIXME
+ * @return array
+ */
 function loadmodact() {
 	global $cfg_theme,$mod,$act;
 	// find template 
@@ -166,7 +172,7 @@ $smarty->assign("site_url", $cfg_url);
 
 /**
  *  set footer value
- * */
+ **/
 ob_start();			
 require_once("include/footer.inc.php");
 $content = ob_get_contents();
